@@ -1,26 +1,202 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-main: #0a0a0a;
+    --bg-card: rgba(18, 18, 20, 0.75);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --accent-crimson: #e63946;
+    --accent-crimson-glow: rgba(230, 57, 70, 0.4);
+    --accent-teal: #2dd4bf;
+    --accent-purple: #c084fc;
+    --accent-gold: #fbbf24;
+    --accent-blue: #38bdf8;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+  }
+
+  * {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    selection-background-color: var(--accent-crimson);
+    selection-color: #ffffff;
+  }
+
+  ::selection {
+    background-color: #e63946;
+    color: #ffffff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Typography Utilities */
+.font-display {
+  font-family: var(--font-syne), var(--font-anton), -apple-system, sans-serif;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.font-script {
+  font-family: var(--font-caveat), cursive;
+}
+
+.font-body {
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Edge-bleeding & Responsive Display Text */
+.edge-bleed-text {
+  font-size: clamp(2.25rem, 8.5vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-weight: 900;
+  user-select: none;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Subtle Film Grain Texture Overlay */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: rgba(18, 18, 22, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(230, 57, 70, 0.35);
+  box-shadow: 0 24px 50px -12px rgba(230, 57, 70, 0.15);
+}
+
+/* Glow Effects */
+.glow-crimson {
+  text-shadow: 0 0 24px rgba(230, 57, 70, 0.6);
+}
+
+.glow-box-crimson {
+  box-shadow: 0 0 30px rgba(230, 57, 70, 0.25);
+}
+
+.glow-teal {
+  box-shadow: 0 0 30px rgba(45, 212, 191, 0.2);
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px rgba(192, 132, 252, 0.2);
+}
+
+/* Plastic ID Badge Effects */
+.id-badge-shadow {
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.8),
+    0 25px 50px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.hologram-shimmer {
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(230, 57, 70, 0.12) 50%,
+    rgba(45, 212, 191, 0.12) 70%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e63946;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes wingFlapLeft {
+  0%, 100% {
+    transform: scaleX(1) skewY(0deg);
+  }
+  50% {
+    transform: scaleX(0.25) skewY(8deg);
+  }
+}
+
+@keyframes wingFlapRight {
+  0%, 100% {
+    transform: scaleX(1) skewY(0deg);
+  }
+  50% {
+    transform: scaleX(0.25) skewY(-8deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.wing-left {
+  transform-origin: right center;
+  animation: wingFlapLeft 1.2s ease-in-out infinite;
+}
+
+.wing-right {
+  transform-origin: left center;
+  animation: wingFlapRight 1.2s ease-in-out infinite;
 }
